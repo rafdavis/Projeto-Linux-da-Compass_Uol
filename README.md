@@ -132,7 +132,7 @@ ssh -i "nome_chave.pem" admin@IP_da_EC2
  sudo chmod +x nome_script.sh
 ```
 
-![Exemplo de Script](//imgs/ScriptExemplo.png)
+![Exemplo de Script](/imgs/ScriptExemplo.png)
 
 ### Caso queira copiar o Script não esqueça de editar os seguintes campos:
 
