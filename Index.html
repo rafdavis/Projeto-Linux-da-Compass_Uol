@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Projeto Linux</title>
+<style>
+html { color-scheme: light dark; }
+body { width: 50em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+p {width: 25em; }
+</style>
+</head>
+<body>
+<h1>Bem vindo ao Guia do Projeto Linux!</h1>
+<br>
+<br>
+
+<h2>Etapa 1: Configuração do Ambiente</h2>
+<h3>- Criar uma VPC com:</h3>
+<li>2 sub-redes públicas e 2 sub-redes privadas</li>
+<br>
+<li>Uma Internet Gateway conectada às sub-redes públicas</li>
+<br>
+<img src="./imgs/criaçãoVPC.png" alt="Criação da VPC" style="width: 750px; height: auto;">
+<img src="./imgs/Subnet.png" alt="Seleção do número de subnets" style="width: 500px; height: 250px;">
+<br>
+<br>
+
+<h3>- Criar uma instância EC2 na AWS: </h3>
+
+<h4>Crie uma chave PEM para aumentar sua segurança:</h4>
+<li>Dentro da instância é possível criá-la</li>
+<br>
+<img src="./imgs/Chave.png" alt="Criação da Chave .PEM" style="width: 750px; height: auto;">
+<br>
+<br>
+<li>Com Sistema Operacional Ubuntu, Debian ou Amazon Linux 2023</li>
+<br>
+<img src="./imgs/AMI.png" alt="Criação da instância e escolha de AMI" style="width: 750px; height: auto">
+<br>
+<br>
+
+<h3>- Instalar na sub-rede pública criada anteriormente</h3>
+<li>Selecione a VPC criada e sub-rede pública, também deixe enable a auto associação pública de IP</li>
+<br>
+<img src="./imgs/NetworkSettings.png" alt="Seleção da VPC e da sub-rede pública na instância" style="width: 750px; height: auto;">
+<br>
+<br>
+
+<h3>- Acessar a instância via SSH para realizar configurações futuras</h2>
+
+<li>Com a instância já criada, clique em Security Groups na parte de Security</li>
+<br>
+<img src="./imgs/Instância.png" alt="Instância criada" style="width: 750px; height: auto;">
+<img src="./imgs/SecurityGroups.png" alt="Seleção de Security Groups dentro da aba Security na instância criada" style="width: 750px; height: auto;">
+<br>
+<br>
+
+<h3>- Associar um Security Group com regras InBound e OutBound</h3>
+
+<li>Selecione edit InBound rules para criar a regra Inbound</li>
+<br>
+<img src="./imgs/InboundRules.png" alt="Criação das regras de entrada" style="width: 750px; height: auto;">
+
+<h3>- As configurações das regras InBound são:</h3>
+<li>HTTP: Anywhere Ipv4</li>
+<li>SSH: My IP</li>
+<br>
+<img src="./imgs/EditInbound.png" alt="Edição das regras InBound" style="width: 750px; height: auto;">
+<br>
+<br>
+
+<h3>- Seguindo os mesmos passos no OutBound</h3>
+<li>Selecione edit OutBound rules para criar a regra OutBound</li>
+<br>
+<img src="./imgs/InboundRules.png" alt="Criação das regras OutBound" style="width: 750px; height: auto;">
+<br>
+
+<h3>- As configurações das regras OutBound são:</h3>
+<li>HTTP: Anywhere Ipv4</li>
+<li>HTTPS: Anywhere IPpv4</li>
+<br>
+<img src="./imgs/EditOutBound.png" alt="Edição das regras OutBound" style="width: 750px; height: auto;">
+<br>
+
+<h3>- Configurando ambiente WSL para acessar a Instância</h3>
+<h4>No microsoft store é possível instalar um sub-sistema Linux na sua máquina Windows</h4>
+<li>Com as configurações de Security Group feitas, agora é hora de acessar a instância</li>
+<li>Para isso, basta pesquisar a mesma AMI selecionada na criação da EC2 e o WSL.</li>
+<br>
+<img src="./imgs/Debian.png" alt="Instalando Debian" style="width: 750px; height: auto;">
+<img src="./imgs/WSL.png" alt="Instalando WSL" style="width: 750px; height: auto;">
+<br>
+<br>
+
+<h4>Instalando o WSL</h4>
+<li>Para instalar o WSL, basta entrar no Windows Powershell e digitar: wsl --install -d Debian</li>
+<br>
+<img src="./imgs/BaixandoDebian.png" alt="Baixando o Debian" style="width: 750px; height: auto;">
+<br>
+<br>
+
+<h4>Conectando-se a instância</h4>
+<li>Mova o local da sua chave (se não foi alterado é em Downloads):</li>
+<li>sudo mv /mnt/c/Users/"seu_usuário"/Downloads/"nome_chave.pem" /home/"usuário_linux"/</li>
+<br>
+<li>Para se conectar a instância digite o seguinte comando: ssh -i "nome_chave.pem" admin@IP_da_EC2</li>
+<br>
+
+<h2>Etapa 2: Configuração do Servidor Web</h2>
+<h3>- Instalar o servidor Nginx na EC2 com os seguintes comandos: </h3>
+<li>sudo apt update && sudo apt upgrade</li>
+<li>sudo apt install nginx</li>
+<li>sudo systemctl status nginx</li>
+<br>
+<img src="./imgs/NginxStatus.png" alt="Nginx executando com sucesso!" style="width: 750px; height: auto;">
+<br>
+<br>
+
+<h3>- Criar uma página HTML simples para ser exibida pelo servidor</h3>
+<li>Com o comando cd /var/www/html você acessa o diretório para editar o html da página</li>
+<li>Com o comando nano index.html você consegue editar a página html</li>
+<br>
+<img src="./imgs/HTML.png" alt="Página do HTML" style="width: 750px; height: auto;">
+<br>
+<br>
+
+<h2>Etapa 3: Monitoramento e Notificações</h2>
+<h3>- Criar um script em Bash ou Python para monitorar a disponibilidade do site</h3>
+<li>Para utilizar o script crie um arquivo .sh</li>
+<li>Edite a permissão para executar com o comando: sudo chmod +x nome_script.sh</li>
+<br>
+<img src="./imgs/ScriptExemplo.png" alt="Exemplo de Script" style="width: 750px; height: auto;">
+<h3>- Caso queira copiar o Script, não se esqueça de editar os seguintes campos: </h3>
+<li>SITE: Substitua pelo IP da sua máquina criada</li>
+<li>MONITORAR: Lembre-se de criar um arquivo em branco monitoramento.log dentro de /var/log</li>
+<li>WEBHOOK: Crie um webhook no Telegram, Discord ou Slack para receber as notificações e copie o link</li>
+<br>
+<br>
+
+<h3>- Criação do Webhook no discord</h3>
+<li>Dentro de um canal, clique em editar canal</li>
+<br>
+<img src="./imgs/EditarCanal.png" alt="Selecionando editar canal dentro de um canal" style="width: 750px; height: auto;">
+<br>
+<br>
+<li>Na parte de integração selecione Webhooks</li>
+<br>
+<img src="./imgs/Webhook.png" alt="Selecionando webhook na aba de integração" style="width: 750px; height: auto;">
+<br>
+<br>
+<li>Basta copiar a URL e colar no script</li>
+<br>
+<img src="./imgs/Bot.png" alt="Copiando link do webhook" style="width: 750px; height: auto;">
+<br>
+<br>
+
+<h3>- O script deve: </h2>
+<li>Verificar se o site responde corretamente a uma requisição HTTP</li>
+<li>Criar logs das verificações em /var/log/monitoramento.log</li>
+<br>
+<img src="./imgs/SemCron.png" alt="Execução do Script sem o Cron configurado" style="width: 750px; height: auto;">
+<br>
+<br>
+
+<li>Enviar uma notificação via Discord, Telegram ou Slack se detectar indisponibilidade</li>
+<br>
+<img src="./imgs/NotDiscord.png" alt="Notificação do Discord" style="width: 750px; height: auto;">
+<br>
+<br>
+
+<h3>- Configurar o script para rodar automaticamente a cada 1 minuto usando cron ou systemd timers</h3>
+<li>Use o comando "crontab -e" para configurar a automatização do script</li>
+<br>
+<img src="./imgs/EditorCron.png" alt="Seleção do editor do Cron" style="width: 750px; height: auto;">
+<br>
+<br>
+
+<h3>- Basta adicionar o comando "* * * * * /var/www/html/nome_script.sh" </h3>
+<br>
+<img src="./imgs/ConfigCron.png" alt="Configuração do Cron" style="width: 750px; height: auto;">
+
+<h2>Etapa 4: Automação e Testes</h2>
+<h3>- Testar a implementação:</h3>
+<li>Não esqueça de dar permissão ao script com o comando: sudo chmod +x nome_script</li>
+<li>Dado a permissão basta executar com o comando: ./nome_script.sh</li>
+<br>
+<img src="./imgs/Cront.png" alt="Execução do Script com o Cron configurado" style="width: 750px; height: auto;">
+<br>
+<br>
+
+<p>Para conferir mais do autor acesse
+<a href="https://github.com/rafdavis">github.com/rafdavis</a>.<br/>
+
+<p><em>Obrigado por acessar o guia do Projeto Linux!</em></p>
+</body>
+</html>
