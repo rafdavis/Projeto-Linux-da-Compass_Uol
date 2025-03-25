@@ -12,13 +12,13 @@
 
 ![Seleção do número de sub-redes](/imgs/Subnet.png)
 
-### Crie uma chave PEM para aumentar sua segurança:
+### 2. Criar uma instância EC2 na AWS:
+
+#### Crie uma chave PEM para aumentar sua segurança:
 
 - Dentro da instância é possível criá-la
 
 ![Criação da chave PEM](/imgs/Chave.png)
-
-### 2. Criar uma instância EC2 na AWS:
 
 - Escolha uma AMI baseada em Linux (Ubuntu/Debian/Amazon Linux)
 
