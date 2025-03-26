@@ -119,7 +119,7 @@ ssh -i "nome_chave.pem" admin@IP_da_EC2
 
 - Você pode acessar o diretório para editar o html da página com o comando:
 
-  ```bash
+```bash
   cd /var/www/html
   ```
 - Você consegue editar a página html com o seguinte comando:
