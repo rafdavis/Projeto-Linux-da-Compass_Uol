@@ -118,10 +118,12 @@ ssh -i "nome_chave.pem" admin@IP_da_EC2
 ### 2. Criar uma página HTML simples para ser exibida pelo servidor
 
 - Você pode acessar o diretório para editar o html da página com o comando:
+
   ```bash
   cd /var/www/html
   ```
 - Você consegue editar a página html com o seguinte comando:
+
 ```bash
   nano index.html
   ```
