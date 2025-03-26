@@ -106,7 +106,7 @@ ssh -i "nome_chave.pem" admin@IP_da_EC2
 
 ## Etapa 2: Configuração do Servidor Web
 
-### 1. Instalar o servidor Nginx na EC2 com os seguintes comandos:
+### 1. Atualizar os pacotes e instalar o servidor Nginx na EC2 com os seguintes comandos:
 ``` bash
  sudo apt update && sudo apt upgrade
  sudo apt install nginx
